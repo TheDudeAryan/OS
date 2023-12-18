@@ -1,0 +1,267 @@
+# Write a shell script to display date in the mm/dd/yy format.
+echo "The date is: date +%D"
+
+
+# write a shell script to write multiplication of a number.
+echo "Enter any number whose multiplication table you want"
+read n
+i=1
+while [ $i -le 10 ]
+do
+b=$(($n * $i))
+echo "$n x $i = $b"
+i=expr $i + 1
+done
+
+
+# Write a shell script to find factorial of given number:
+echo "Enter the number:"
+read n
+if [ $n -eq 0 ] || [ $n -eq 1 ]
+then
+echo "Factorial of the number is: 1"
+else
+i=1
+j=$n
+fact=1
+while [ $i -le $n ]
+do
+fact=$((fact * j))
+j=$((j - 1))
+i=$((i + 1))
+done
+echo "The factorial of number $n is: $fact"
+fi
+
+
+# Program to show the pyramid of special character "*".
+echo "Enter the number"
+read num
+i=1
+while [ $i -le $num ]
+do
+j=1
+m=1
+while [ $m -le expr $num - $i ]
+do
+echo -n " "
+m=`expr $m + 1 `
+done
+while [ $j -le $i ]
+do
+echo -n "* " 
+j=expr $j + 1
+done
+echo " "
+i=expr $i + 1
+done
+
+
+# Write a shell script to find the sum of digits of a given number.
+echo "Enter a number"
+read num
+sum=0
+while [ $num -gt 0 ] 
+do
+	mod=$((num % 10 )) 
+	sum=$((sum + mod ))
+	num=$((num / 10 ))
+done
+echo "sum of digits of number is :$sum"
+
+
+#Write a shell scipt to perform the tasks of basic calculator.
+echo "Enter numbers"
+read num1 
+read num2
+echo "Enter the choice of operation:
+1.Addition
+2.Subtraction
+3.Multiplication
+4.Division"
+read choice 
+if [ $choice -eq 1 ]
+then
+num=$((num1 +num2))
+echo "The addition of numbers is:$num"
+elif [ $choice -eq 2 ]
+then
+s=$((num1 - num2))
+echo "The subtraction of numbers is:$s"
+elif [ $choice -eq 3 ]
+then 
+m=$((num1 * num2))
+echo "The multiplication of numbers is:$m"
+elif [ $choice -eq 4 ]
+then 
+d=$((num1 / num2))
+echo "The division of numbers is:$d"
+fi
+
+
+# write a shell script to find the power of given number.
+echo "Enter an integer for base"
+read base
+echo "Enter an integer for exponent"
+read exp
+v=1
+i=1
+while [ $i -le $exp ]
+do
+	v=$((v * base))
+i=expr $i + 1	
+done	
+echo "$base raised to the power $exp is : $v"
+
+
+#Write a shell script to check whether the number is armstrong or not.
+echo "Enter a number"
+read num
+sum=0
+nd=0
+y=0
+x=$num
+f=$num
+#calculate number of digits in number.
+while [ $f -gt 0 ]
+do
+val=$((f % 10))
+f=$((f / 10))
+nd=$((nd + 1))
+done
+while [ $x -gt 0 ]
+do
+y=$((x % 10))
+n=echo $y ^ $nd|bc
+sum=$((sum + n))
+x=$((x / 10))
+done
+if [ $sum -eq $num ]
+then 
+echo "The number $num is an Armstrong number"
+else
+echo "The number $num is not an Armstrong number"
+fi
+
+
+#Write a shell script to find the GCD of two numbers;
+echo "Enter the first number"
+read n1
+echo "Enter the second number"
+read n2
+if [ $n1 -eq 1 ] || [ $n2 -eq 1 ]
+then
+echo "The number $n1 and $n2 have GCD:1"
+elif [ $n1 -eq $n2 ]
+then
+echo "The number $n1 and $n2 have GCD:$n1"
+elif [ $n1 -lt $n2 ]
+then
+k=1
+j=0
+while [ $k -le $n1 ]
+do
+if [ expr $n1 % $k -eq 0 ] && [ expr $n2 % $k -eq 0 ]
+then
+j=$k
+fi
+k=$((k + 1))
+done
+echo "The number $n1 and $n2 have GCD:$j"
+elif [ $n1 -gt $n2 ]
+then
+m=1
+y=0
+while [ $m -le $n2 ]
+do
+if [ expr $n1 % $m -eq 0 ] && [ expr $n2 % $m -eq 0 ]
+then
+y=$m
+fi
+m=$((m + 1))
+done
+echo "The number $n1 and $n2 have GCD:$y"
+else
+echo "Enter a valid number"
+fi
+
+
+# write a shell script to detect whether number entered on command line is prime or not.
+echo "Enter any number"
+read n
+count=0
+i=2
+while [ $i -le $n ]
+do
+	if [ $((n % i)) -eq 0 ]
+	then
+		count=expr $count + 1
+	fi
+i=expr $i + 1
+done
+if [ $count -eq 1 ] 
+then 
+	echo "The number $n is prime number"
+else
+	echo "The number $n is not prime"	
+fi
+
+
+# Write a shell script program to compare two file and if they found equal delete the duplicate.
+echo "Enter the file1 name"
+read file1
+echo "Enter the file2 name"
+read file2
+output=cmp $file1 $file2 | wc -l
+if [ $output -eq 0 ]
+then
+rm -i file2
+echo "The $file1 and $file2 are same so removing file $file2"
+else
+echo"The $file1 and $file2 are different"
+fi
+
+
+#Write a shell script to merge the contents of three files ,sort the contents and then display #them page by page.
+echo "Enter file1 name:"
+read f1
+echo "Enter file1 name:"
+read f2
+echo "Enter file1 name:"
+read f3
+output=cat $f1 $f2 $f3 | sort | more
+echo "Sorted file page by page:$output"
+
+
+#Write a shell script to check whether the file have all permissions or not.
+echo "Enter file name:"
+read file
+if [ -e $file ]
+then
+if [ -r $file ] && [ -w $file ] && [ -x $file ]
+then
+echo "File have all 3 permissions:"
+elif [ -r $file ] && [ -w $file ]
+then 
+echo "File have only read and write permissions"
+elif [ -r $file ] && [ -x $file ] 
+then 
+echo "File have only read and execute permissions"
+elif [ -w $file ] && [ -x $file ] 
+then 
+echo "File have only write and execute permissions"
+elif [ -r $file ]
+then
+echo "File have only read permissions."
+elif [ -w $file ]
+then
+echo "File have only write permissions."
+elif [ -x $file ]
+then
+echo "File have only execute permissions."
+else
+echo "file have no permission"
+fi
+else
+echo "Invalid file"
+fi
